@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salendri Nithin — AI/ML Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #00FFC8;
+      --accent2: #7B61FF;
+      --accent3: #FF6B6B;
+      --bg: #070714;
+      --bg2: #0D0D2B;
+      --surface: #12122A;
+      --surface2: #1A1A3E;
+      --text: #F0F0FF;
+      --muted: #8888BB;
+      --card-bg: #0F0F28;
+      --border: rgba(123,97,255,0.2);
+      --glow: rgba(0,255,200,0.15);
+    }
+    [data-theme="light"] {
+      --accent: #6C00FF;
+      --accent2: #FF3D80;
+      --accent3: #FF8C00;
+      --bg: #F8F6FF;
+      --bg2: #EEE8FF;
+      --surface: #E8E0FF;
+      --surface2: #DDD4FF;
+      --text: #12003A;
+      --muted: #7060A0;
+      --card-bg: #FFFFFF;
+      --border: rgba(108,0,255,0.15);
+      --glow: rgba(108,0,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ── BACKGROUND MESH ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(123,97,255,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,255,200,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 60% 30%, rgba(255,107,107,0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    [data-theme="light"] body::before {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(108,0,255,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(255,61,128,0.08) 0%, transparent 55%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 18px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      background: rgba(7,7,20,0.7);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.5s;
+    }
+    [data-theme="light"] nav { background: rgba(248,246,255,0.8); }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .theme-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .theme-btn:hover { border-color: var(--accent); transform: rotate(20deg); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(56px, 10vw, 140px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.9s ease 0.1s both;
+    }
+    .hero-name .line1 { display: block; color: var(--text); }
+    .hero-name .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: gradShift 4s ease infinite, fadeUp 0.9s ease 0.1s both;
+    }
+    @keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .hero-bio {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      animation: fadeUp 1s ease 0.2s both;
+    }
+    .hero-bio strong { color: var(--text); font-weight: 500; }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 1s ease 0.3s both;
+    }
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #070714;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(0,255,200,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,255,200,0.5); }
+    .btn-outline2 {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .btn-outline2:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: fadeUp 1s ease 0.5s both;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTION BASE ── */
+    .section-wrap { padding: 120px 48px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-eyebrow::before { content:''; width:32px; height:1px; background:var(--accent); }
+    .section-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 64px;
+      color: var(--text);
+    }
+    .section-heading em { font-style: normal; color: var(--accent2); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+    .about-photo-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(123,97,255,0.1);
+    }
+    .about-photo-wrap img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+    .photo-badge {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      background: rgba(7,7,20,0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      backdrop-filter: blur(10px);
+    }
+    .photo-badge-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--accent); }
+    .photo-badge-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+    .about-text p { font-size:15px; line-height:1.9; color:var(--muted); margin-bottom:20px; }
+    .about-text p strong { color:var(--text); font-weight:500; }
+    .about-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; }
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-box:hover { border-color:var(--accent); transform:translateY(-4px); }
+    .stat-num { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--accent); }
+    .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 0;
+    }
+    .project-card:hover { transform:translateY(-8px); border-color:var(--accent2); box-shadow:0 32px 64px rgba(0,0,0,0.4), 0 0 40px rgba(123,97,255,0.15); }
+    .project-card:hover::before { opacity:0.05; }
+    .project-thumb {
+      height:180px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:80px;
+      position:relative;
+      overflow:hidden;
+    }
+    .project-thumb::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,transparent 40%,var(--card-bg) 100%);
+    }
+    .project-info { padding:20px 24px 24px; position:relative; z-index:1; }
+    .project-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .tag {
+      font-size:10px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      background: rgba(123,97,255,0.15);
+      color:var(--accent2);
+      border:1px solid rgba(123,97,255,0.3);
+      padding:3px 10px;
+      border-radius:100px;
+      font-weight:500;
+    }
+    .project-name {
+      font-family:'Syne',sans-serif;
+      font-size:20px;
+      font-weight:800;
+      color:var(--text);
+      margin-bottom:8px;
+      line-height:1.2;
+    }
+    .project-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+    .project-link {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      color:var(--accent);
+      text-decoration:none;
+      transition:gap 0.3s;
+    }
+    .project-link:hover { gap:14px; }
+
+    /* ── SKILLS ── */
+    #skills { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; }
+    .skill-pill {
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:22px 16px;
+      text-align:center;
+      transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+      cursor:default;
+      position:relative;
+      overflow:hidden;
+    }
+    .skill-pill::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(0,255,200,0.1), rgba(123,97,255,0.1));
+      opacity:0;
+      transition:opacity 0.3s;
+    }
+    .skill-pill:hover { transform:translateY(-6px) scale(1.03); border-color:var(--accent); box-shadow:0 16px 40px rgba(0,255,200,0.15); }
+    .skill-pill:hover::before { opacity:1; }
+    .skill-emoji { font-size:32px; margin-bottom:10px; display:block; }
+    .skill-name { font-size:12px; font-weight:600; color:var(--text); font-family:'Syne',sans-serif; letter-spacing:0.05em; }
+    .skill-sub { font-size:10px; color:var(--muted); margin-top:4px; }
+
+    /* ── CONTACT ── */
+    #contact { text-align:center; }
+    .contact-grid { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:48px; }
+    .contact-card {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:20px 32px;
+      border-radius:16px;
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      font-weight:500;
+      transition:all 0.3s;
+    }
+    .contact-card:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,255,200,0.1); }
+    .contact-icon { font-size:22px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align:center;
+      padding:32px 48px;
+      border-top:1px solid var(--border);
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:0.05em;
+      position:relative;
+      z-index:1;
+    }
+    .footer-accent { color:var(--accent); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media (max-width:900px) {
+      .about-grid { grid-template-columns:1fr; gap:48px; }
+      nav { padding:16px 24px; }
+      .nav-links { display:none; }
+      .section-wrap { padding:80px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">SN</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">
+      <span></span> Available for opportunities
+    </div>
+    <h1 class="hero-name">
+      <span class="line1">SALENDRI</span>
+      <span class="line2">NITHIN</span>
+    </h1>
+    <p class="hero-bio">
+      I'm a <strong>B.Tech Computer Science student</strong> specializing in
+      <strong>AI/ML Engineering</strong> — building intelligent systems with
+      Python, FastAPI, LLMs, and real-world full-stack applications.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-glow">View My Work ↓</a>
+      <a href="#contact" class="btn-outline2">Get In Touch</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      scroll
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div id="about">
+    <div class="section-wrap">
+      <p class="section-eyebrow reveal">Who I Am</p>
+      <h2 class="section-heading reveal">About <em>Me</em></h2>
+      <div class="about-grid">
+        <div class="about-photo-wrap reveal">
+          <img src="profile.png" alt="Salendri Nithin" />
+          <div class="photo-badge">
+            <div class="photo-badge-title">🎓 B.Tech CSE</div>
+            <div class="photo-badge-sub">Hyderabad, India · 2021–2025</div>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <p>I am a passionate <strong>Computer Science student</strong> who enjoys building practical AI-powered applications using modern web technologies. I love solving real-world problems through clean and efficient code.</p>
+          <p>With hands-on experience in <strong>Python, FastAPI, LLMs (Gemini API), SQL, HTML, CSS, and JavaScript</strong>, I build everything from intelligent ticketing systems to full-stack applicant tracking platforms.</p>
+          <p>I am constantly learning and improving my skills with the goal of becoming a professional <strong>AI/ML Engineer</strong> who delivers impactful software solutions.</p>
+          <div class="about-stats">
+            <div class="stat-box">
+              <div class="stat-num">4+</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">3+</div>
+              <div class="stat-label">AI Systems</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">7.16</div>
+              <div class="stat-label">GPA / 10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="work">
+    <div class="section-wrap">
+      <p class="section-eyebrow reveal">Selected Work</p>
+      <h2 class="section-heading reveal">Featured <em>Projects</em></h2>
+      <div class="projects-grid">
+
+        <!-- Chatbot -->
+        <div class="project-card reveal">
+          <div class="project-thumb" style="background:linear-gradient(135deg,#0d1b2a,#1b263b,#415a77);">
+            <span style="position:relative;z-index:2;">🤖</span>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-name">🧠 College Website Chatbot</div>
+            <p class="project-desc">An intent-based chatbot built using Python and NLP techniques to answer queries related to web development. Interactive web interface using HTML, CSS, and JavaScript.</p>
+            <a href="https://github.com/salendri-nithin/Chatbot-Development-Project" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Library -->
+        <div class="project-card reveal">
+          <div class="project-thumb" style="background:linear-gradient(135deg,#0a2318,#134d2e,#1a7a4a);">
+            <span style="position:relative;z-index:2;">📚</span>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">REST API</span>
+            </div>
+            <div class="project-name">📖 Library Management System</div>
+            <p class="project-desc">A dynamic web app to search books using a public API. Implemented DOM manipulation and async fetch requests to display book details, covers, and author names.</p>
+            <a href="https://github.com/salendri-nithin/Library-Management-System" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Ticketing -->
+        <div class="project-card reveal">
+          <div class="project-thumb" style="background:linear-gradient(135deg,#1a0533,#3d1278,#6b21a8);">
+            <span style="position:relative;z-index:2;">🎫</span>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">Gemini API</span>
+              <span class="tag">SQLite</span>
+            </div>
+            <div class="project-name">⚡ AI Enterprise Ticketing System</div>
+            <p class="project-desc">AI-powered ticketing system with LLM-based Agent Copilot using Gemini API. Auto-classifies tickets, detects sentiment, generates resolution suggestions in real time.</p>
+            <a href="https://github.com/salendri-nithin/Advanced-AI-Powered-Ticketing-System" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- TalentFlow -->
+        <div class="project-card reveal">
+          <div class="project-thumb" style="background:linear-gradient(135deg,#0a0520,#1e0a5e,#3730a3);">
+            <span style="position:relative;z-index:2;">🚀</span>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">SQLAlchemy</span>
+              <span class="tag">JWT</span>
+            </div>
+            <div class="project-name">💼 TalentFlow — AI Powered ATS</div>
+            <p class="project-desc">Full-stack Applicant Tracking System with AI resume parsing and candidate scoring (0–100). Features JWT auth, 6-stage hiring pipeline, interview scheduling. Deployed on Render.</p>
+            <a href="https://github.com/salendri-nithin/talentflow-ats" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div id="skills">
+    <div class="section-wrap">
+      <p class="section-eyebrow reveal">Expertise</p>
+      <h2 class="section-heading reveal">What I <em>Do Best</em></h2>
+      <div class="skills-grid">
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🐍</span>
+          <div class="skill-name">Python</div>
+          <div class="skill-sub">Core & OOP</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">⚡</span>
+          <div class="skill-name">FastAPI</div>
+          <div class="skill-sub">REST & WebSocket</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🤖</span>
+          <div class="skill-name">AI / ML</div>
+          <div class="skill-sub">NLP & Scoring</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🧠</span>
+          <div class="skill-name">LLM / Gemini</div>
+          <div class="skill-sub">Prompt Engineering</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🗄️</span>
+          <div class="skill-name">SQL / SQLite</div>
+          <div class="skill-sub">SQLAlchemy ORM</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🌐</span>
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-sub">DOM & Async</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🎨</span>
+          <div class="skill-name">HTML5 & CSS3</div>
+          <div class="skill-sub">Responsive Design</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">📱</span>
+          <div class="skill-name">Bootstrap</div>
+          <div class="skill-sub">UI Framework</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🔐</span>
+          <div class="skill-name">JWT Auth</div>
+          <div class="skill-sub">Role Based Access</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">☁️</span>
+          <div class="skill-name">Render / Railway</div>
+          <div class="skill-sub">Cloud Deploy</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🔧</span>
+          <div class="skill-name">Git / GitHub</div>
+          <div class="skill-sub">Version Control</div>
+        </div>
+        <div class="skill-pill reveal">
+          <span class="skill-emoji">🔄</span>
+          <div class="skill-name">CI/CD</div>
+          <div class="skill-sub">Auto Deployment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-wrap">
+      <p class="section-eyebrow reveal" style="justify-content:center;">Say Hello</p>
+      <h2 class="section-heading reveal" style="text-align:center;">Let's Work <em>Together</em></h2>
+      <p class="reveal" style="text-align:center;max-width:480px;margin:0 auto;font-size:15px;color:var(--muted);line-height:1.8;">
+        Open to full-time roles, internships, and freelance projects in AI/ML and full-stack development.
+      </p>
+      <div class="contact-grid">
+        <a href="mailto:nithinsalendri578@gmail.com" class="contact-card reveal">
+          <span class="contact-icon">📧</span>
+          nithinsalendri578@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/salendri-nithin-726034286" target="_blank" class="contact-card reveal">
+          <span class="contact-icon">💼</span>
+          LinkedIn Profile
+        </a>
+        <a href="https://github.com/salendri-nithin" target="_blank" class="contact-card reveal">
+          <span class="contact-icon">🐙</span>
+          GitHub Profile
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>2025 <span class="footer-accent">Salendri Nithin</span> — AI/ML Engineer — Built with passion ❤️</p>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    function setTheme(t) {
+      root.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      btn.textContent = t === 'dark' ? '🌙' : '☀️';
+    }
+    setTheme(localStorage.getItem('theme') || 'dark');
+    btn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
